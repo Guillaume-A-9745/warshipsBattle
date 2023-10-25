@@ -49,11 +49,13 @@ while not all_ships_destroyed:
     if not hit:
         print("Manqué!")
 
-    all_ships_destroyed = all(all(value is False for ship in ships_list for value in ship.values()))
-    # if not all_ships_destroyed:
-    #     for ship in ships_list:
-    #         for position in ship.values():
-    #             if position:
-    #                 all_ships_destroyed = False
+    all_ships_destroyed = True
+    for ship in ships_list:
+        for value in ship.values():
+            if value:
+                all_ships_destroyed = False
+                break
+        if not all_ships_destroyed:
+            break
 
 print("Tous les navires ennemis ont été coulés. Vous avez gagné!")

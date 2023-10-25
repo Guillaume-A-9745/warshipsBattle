@@ -3,6 +3,7 @@
 
 GRID_SIZE = 10
 LETTERS = "ABCDEFGHIJ"
+previous_shots = []
 
 # Position initiale des navires
 aircraft_carrier = {(2, 2): True, (3, 2): True, (4, 2): True, (5, 2): True, (6, 2): True}  # porte_avion en B2
@@ -19,8 +20,8 @@ def engage():
         user_input = input("Entrez les coordonnées de votre tir (exemple: 'A1' ou 'J10'): ")
         coordinate = get_user_shot(user_input)
         result = check_hit(coordinate, ships_list)
-        if result == False:
-            print("Manqué!")
+        previous_shots.append(coordinate)       # ajouter les coordonnées au tableau
+        display_battlefield(previous_shots)     # afficher la grille avec les tirs précédents
 
     print("Tous les navires ennemis ont été coulés. Vous avez gagné!")
 
@@ -35,6 +36,7 @@ def check_hit(coordinate, ships):
             if all(value == False for value in ship.values()):
                 print("Un navire a été coulé!")
             return True
+    print("Manqué!")
     return False
 
 def get_user_shot(user_input):
@@ -56,4 +58,25 @@ def all_ships_destroyed(ships):
                 return False
     return True
 
+def display_battlefield(previous_shots):
+    num_rows = GRID_SIZE
+    num_cols = GRID_SIZE
+
+    # Afficher les étiquettes des colonnes (A, B, C, ...)
+    print("    " + "   ".join(LETTERS))
+
+    for row in range(num_rows):
+        row_label = str(row + 1).rjust(2)  # Ajoute un espace pour l'alignement
+        row_display = [row_label]
+
+        for col in range(num_cols):
+            cell_value = ' '
+            if previous_shots is not None:
+                for shot in previous_shots:
+                    if (shot[0]-1) == col and (shot[1]-1) == row:
+                        cell_value = 'O'  # Marquer la zone ciblée
+                        break
+            row_display.append(f"[{cell_value}]")
+
+        print(" ".join(row_display))
 engage()

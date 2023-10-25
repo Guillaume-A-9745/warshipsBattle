@@ -15,7 +15,7 @@ ships_list = [aircraft_carrier, cruiser, destroyer, submarine, torpedo_boat]
 
 all_ships_destroyed = False
 
-print("Bienvene sur la bataille navale !   Détruisez tous les navires ennemis pour gagner")
+print("Bienvenue sur la bataille navale !   Détruisez tous les navires ennemis pour gagner")
 while not all_ships_destroyed:
     user_input = input("Entrez les coordonnées de votre tir (exemple: 'A1' ou 'J10'): ")
     user_input = user_input.strip().upper()

@@ -17,29 +17,32 @@ torpedo_boat = {(5, 9): True, (6, 9): True}  # torpilleur en E9
 # Liste des navires
 ships_list = [aircraft_carrier, cruiser, destroyer, submarine, torpedo_boat]
 
+
 # Fonction principale du jeu
 def engage():
     """
     Main function of the game. Manages the flow of the battleship game.
     """
-    print("Bienvene sur la bataille navale !   Détruisez tous les navires ennemis pour gagner")
+    print("Bienvenue sur la bataille navale !   Détruisez tous les navires ennemis pour gagner")
     while not all_ships_destroyed(ships_list):
         user_input = input("Entrez les coordonnées de votre tir (exemple: 'A1' ou 'J10'): ")
         coordinate = get_user_shot(user_input)
         result = check_hit(coordinate, ships_list)
         update_previous_shots(coordinate, result)
-        display_battlefield(previous_shots)         # afficher la grille avec les tirs précédents
+        display_battlefield(previous_shots, ships_list)  # afficher la grille avec les tirs précédents
 
     print("Tous les navires ennemis ont été coulés. Vous avez gagné!")
+
 
 # Vérifie si les coordonnées sont valides
 def is_valid_coordinate(coordinate):
     """
     Check if the coordinates are valid within the grid.
-    :param coordinate (tuple): The coordinates as a tuple (column, row).
+    :param coordinate: The coordinates as a tuple (column, row).
     :return: bool: True if the coordinates are valid, False otherwise.
     """
     return coordinate[0] in range(1, GRID_SIZE + 1) and coordinate[1] in range(1, GRID_SIZE + 1)
+
 
 # Vérifie si un tir touche un navire
 def check_hit(coordinate, ships):
@@ -51,13 +54,14 @@ def check_hit(coordinate, ships):
     """
     for ship in ships:
         if coordinate in ship:
-            ship[coordinate] = False  # Marquer la position comme touchée
+            ship[coordinate] = False  # Marquer la position du navire comme touchée
             print("Touché!")
-            if all(value == False for value in ship.values()):
+            if all(value is False for value in ship.values()):
                 print("Un navire a été coulé!")
             return True
     print("Manqué!")
     return False
+
 
 # Obtenir les coordonnées du tir de l'utilisateur
 def get_user_shot(user_input):
@@ -73,9 +77,10 @@ def get_user_shot(user_input):
             row = int(row_str)
             col = LETTERS.index(col_letter) + 1
             if is_valid_coordinate((col, row)):
-                return (col, row)
+                return col, row
     print("Coordonnées invalides. Veuillez entrer des coordonnées valides.")
     return get_user_shot(input("Entrez les coordonnées de votre tir (exemple: 'A1' ou 'J10'): "))
+
 
 # Vérifie si tous les navires ont été détruits
 def all_ships_destroyed(ships):
@@ -90,6 +95,7 @@ def all_ships_destroyed(ships):
                 return False
     return True
 
+
 # Met à jour les résultats des tirs précédents
 def update_previous_shots(coordinate, result):
     """
@@ -97,16 +103,18 @@ def update_previous_shots(coordinate, result):
     :param coordinate: The coordinates of the shot (column, row).
     :param result: True if the shot hit, False if it missed.
     """
-    col_letter = LETTERS[coordinate[0] - 1]         # Convertir l'indice en lettre
+    col_letter = LETTERS[coordinate[0] - 1]  # Convertir l'indice en lettre
     row_number = coordinate[1]
-    cell_state = "Touché" if result else "Manqué"   # Mettre à jour l'état en fonction du résultat
+    cell_state = "Touché" if result else "Manqué"  # Mettre à jour l'état en fonction du résultat
     previous_shots[(col_letter, row_number)] = cell_state
 
+
 # Affiche la grille avec les tirs précédents
-def display_battlefield(previous_shots):
+def display_battlefield(shots, ships):
     """
     Display the game grid with the results of previous shots.
-    :param previous_shots: A dictionary of previous shots with coordinates and results.
+    :param ships: the list of boats
+    :param shots: A dictionary of previous shots with coordinates and results.
     """
     num_rows = GRID_SIZE
     num_cols = GRID_SIZE
@@ -120,14 +128,18 @@ def display_battlefield(previous_shots):
 
         for col in range(num_cols):
             cell_value = ' '
-            if previous_shots is not None:
-                state = previous_shots.get((LETTERS[col], row + 1), "")
+            if shots is not None:
+                state = shots.get((LETTERS[col], row + 1), "")
                 if state == "Touché":
                     cell_value = 'X'
+                    for ship in ships:
+                        if all(value is False for value in ship.values()):
+                            cell_value = 'W'
                 elif state == "Manqué":
                     cell_value = 'O'
             row_display.append(f"[{cell_value}]")
 
         print(" ".join(row_display))
+
 
 engage()

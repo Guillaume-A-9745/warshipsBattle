@@ -16,11 +16,11 @@
 
 # Sur la branche partie_1 --> La partie 1 de l'exercice
 
-    Sur cette partie, 
-    la grille n'est pas affichée,
-    une demande de coordonnée est effectuer tant que tous les navires ne sont pas détruits,
-    un retour indique si le tir à touché ou manqué une cible et indique quand un navire est coulé.
-    les navires sont placés à des places fixes.
+    Sur cette partie:
+    La grille n'est pas affichée.
+    Une demande de coordonnée est effectuer tant que tous les navires ne sont pas détruits.
+    Un retour indique si le tir à touché ou manqué une cible et indique quand un navire est coulé.
+    Les navires sont placés à des places fixes.
 
     Ajout d'un fichier V2 sans fonction pour respecter les directives de l'exercice.
 
@@ -33,8 +33,19 @@ Position des navires:
 
 # Sur la branche partie_2 --> La partie 2 de l'exercice
 
-    coming soon...
+    Sur cette partie:
+    Une demande de coordonnée est effectuer tant que tous les navires ne sont pas détruits.
+    La grille est afficher après chaque entrée de coordonnée.
+    Un retour indique si le tir à touché ou manqué une cible et indique quand un navire est coulé.
+    Si le tire est réussi, la grille affiche un X sur la case ciblée.
+    Si le tire échoue, la grille affiche un O sur la case ciblée.
+    Les navires sont placés à des places fixes.
 
 # Sur la branche partie_3 --> La partie 3 de l'exercice
 
     coming soon...
+
+# Installation et configuration
+
+    coming soon...
+

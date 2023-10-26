@@ -16,7 +16,7 @@
 
 # Sur la branche partie_1 → La partie 1 de l'exercice
 
-* Sur cette partie :
+Sur cette partie :
 * La grille n'est pas affichée.
 * Une demande de coordonnée est effectuer tant que tous les navires ne sont pas détruits.
 * Un retour indique si le tir à touché ou manqué une cible et indique quand un navire est coulé.
@@ -34,7 +34,7 @@ Position des navires:
 
 # Sur la branche partie_2 → La partie 2 de l'exercice
 
-* Sur cette partie :
+Sur cette partie :
 * Une demande de coordonnée est effectué tant que tous les navires ne sont pas détruits.
 * La grille est affiché après chaque entrée de coordonnée.
 * Un retour indique si le tir à toucher ou manqué une cible et indique quand un navire est coulé.
@@ -45,6 +45,23 @@ Position des navires:
 
 * Ajout de la version en anglais.
 * Ajout de la docstrings.
+* Ajout d'une version à partir du corriger de la partie 1.
+
+Question :
+
++ Quels sont les avantages et inconvénients comparés d'un ensemble ou d'une liste pour stocker les coups joués de la partie ?
+  + Avantages de l'utilisation d'un ensemble (set) :
+    + Recherche rapide.
+    + Elimination des doublons.
+  + Inconvénients de l'utilisation d'un ensemble (set) :
+    + Pas d'ordre spécifique.
+    + Non Indexé.
+
+
++ Comment s'affichent les navires coulés ? Pourquoi en est-ce ainsi ?
+
+
++ Que pensez-vous de l'efficacité de la fonction grid_square_state(coord) ? Exposer une idée d'évolution de la structure des données du programme qui permettrait de l'améliorer à cet égard.
 
 # Sur la branche partie_3 → La partie 3 de l'exercice
 

@@ -22,6 +22,9 @@ ships_sunk = []
 
 
 def ask_coord():
+    """
+    Main function of the game. Manages the flow of the battleship game.
+    """
     print('Bienvenue dans la bataille navale :')
     display_grid()
     while ships_list:
@@ -34,6 +37,10 @@ def ask_coord():
 
 # fonction pour obtenir des coordonnées de tir de l'utilisateur
 def get_user_shot():
+    """
+    function to get firing coordinates from user
+    :return: coordinates
+    """
     valid_coord = False
     while not valid_coord:
         player_coord = input("Entrez les coordonnées de votre tir (ex. : 'A1', 'H8') : ")
@@ -55,6 +62,12 @@ def get_user_shot():
 
 # fonction retournant un booléen indiquant si un navire est touché par un tir aux coordonnées indiquées
 def ship_is_hit(ship, shot_coord):
+    """
+    function returning a boolean indicating if a ship is hit by a shot at the specified coordinates
+    :param ship: one ship
+    :param shot_coord: coordinates
+    :return: True if ship hit, False otherwise.
+    """
     if shot_coord in ship:
         ship[shot_coord] = False  # on mémorise ce tir
         grid_square_state(shot_coord)
@@ -64,6 +77,11 @@ def ship_is_hit(ship, shot_coord):
 
 # fonction retournant un booléen indiquant si un navire est coulé (toutes ses cases ont été touchées)
 def ship_is_sunk(ship):
+    """
+    function returning a boolean indicating if a ship is sunk (all its boxes have been touched)
+    :param ship: one ship
+    :return: True if ship sunk, False otherwise
+    """
     if True not in ship.values():
         ships_list.remove(ship)  # le navire est supprimé de la flotte
         ships_sunk.append(ship)
@@ -73,6 +91,12 @@ def ship_is_sunk(ship):
 
 # fonction affichant le résultat d'un tir
 def analyze_shot(ships, shot_coord):
+    """
+    function displaying the result of a shot
+    :param ships: list of ships
+    :param shot_coord: coordinates
+    :return: display message
+    """
     col_letter = LETTERS[shot_coord[0] - 1]  # Convertir l'indice en lettre
     row_number = shot_coord[1]
     hit_ship = None  # Variable pour suivre si un navire a été touché
@@ -94,12 +118,21 @@ def analyze_shot(ships, shot_coord):
 
 # fonction retournant l'état de la case passée en paramètre
 def grid_square_state(coord):
+    """
+    function returning the state of the box passed as a parameter
+    :param coord: coordinate
+    :return: coordinate status
+    """
     state = played_shots.get((LETTERS[coord[1] - 1], coord[0]), "")
     return state
 
 
 # fonction affichant la grille
 def display_grid():
+    """
+    Grid display function
+    :return: grid display
+    """
     num_rows = GRID_SIZE
     num_cols = GRID_SIZE
 

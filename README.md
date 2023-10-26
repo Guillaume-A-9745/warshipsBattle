@@ -45,7 +45,7 @@ Sur cette partie :
 
 * Ajout de la version en anglais.
 * Ajout de la docstrings.
-* Ajout d'une version à partir du corriger de la partie 1.
+* Ajout d'une version à partir du corriger de la partie 1.(warshipsBattle_V2).
 
 Question :
 

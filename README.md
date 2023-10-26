@@ -42,6 +42,10 @@ Position des navires:
 * Si le tire échoue, la grille affiche un O sur la case ciblée.
 * Les navires sont placés à des places fixes.
 
+
+* Ajout de la version en anglais.
+* Ajout de la docstrings.
+
 # Sur la branche partie_3 → La partie 3 de l'exercice
 
 * coming soon...

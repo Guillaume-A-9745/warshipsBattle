@@ -9,11 +9,11 @@ LETTERS = "ABCDEFGHIJ"
 previous_shots = {}
 
 # Position initiale des navires avec des coordonnées et des états
-aircraft_carrier = {(2, 2): True, (3, 2): True, (4, 2): True, (5, 2): True, (6, 2): True}  # porte_avion en B2
-cruiser = {(1, 4): True, (1, 5): True, (1, 6): True, (1, 7): True}  # croiseur en A4
-destroyer = {(3, 5): True, (3, 6): True, (3, 7): True}  # contre_torpilleur en C5
-submarine = {(8, 5): True, (9, 5): True, (10, 5): True}  # sous_marin en H5
-torpedo_boat = {(5, 9): True, (6, 9): True}  # torpilleur en E9
+aircraft_carrier = {(2, 2): True, (3, 2): True, (4, 2): True, (5, 2): True, (6, 2): True}  # Porte-avion en B2
+cruiser = {(1, 4): True, (1, 5): True, (1, 6): True, (1, 7): True}  # Croiseur en A4
+destroyer = {(3, 5): True, (3, 6): True, (3, 7): True}  # Contre-torpilleur en C5
+submarine = {(8, 5): True, (9, 5): True, (10, 5): True}  # Sous-marin en H5
+torpedo_boat = {(5, 9): True, (6, 9): True}  # Torpilleur en E9
 # Liste des navires
 ships_list = [aircraft_carrier, cruiser, destroyer, submarine, torpedo_boat]
 
@@ -23,15 +23,15 @@ def engage():
     """
     Main function of the game. Manages the flow of the battleship game.
     """
-    print("Bienvenue sur la bataille navale !   Détruisez tous les navires ennemis pour gagner")
+    print("Welcome to Battleship! Destroy all enemy ships to win.")
     while not all_ships_destroyed(ships_list):
-        user_input = input("Entrez les coordonnées de votre tir (exemple: 'A1' ou 'J10'): ")
+        user_input = input("Enter the coordinates of your shot (example: 'A1' or 'J10'): ")
         coordinate = get_user_shot(user_input)
         result = check_hit(coordinate, ships_list)
         update_previous_shots(coordinate, result)
-        display_battlefield(previous_shots, ships_list)  # afficher la grille avec les tirs précédents
+        display_battlefield(previous_shots, ships_list)  # Afficher la grille avec les tirs précédents
 
-    print("Tous les navires ennemis ont été coulés. Vous avez gagné!")
+    print("All enemy ships have been sunk. You win!")
 
 
 # Vérifie si les coordonnées sont valides
@@ -47,28 +47,28 @@ def is_valid_coordinate(coordinate):
 # Vérifie si un tir touche un navire
 def check_hit(coordinate, ships):
     """
-    Checks if a shot hits a ship
+    Checks if a shot hits a ship.
     :param coordinate: The coordinates of the shot (column, row).
-    :param ships: the list of boats
-    :return: bool: True if ship hit, False otherwise
+    :param ships: The list of boats.
+    :return: bool: True if ship is hit, False otherwise.
     """
     for ship in ships:
         if coordinate in ship:
             ship[coordinate] = False  # Marquer la position du navire comme touchée
-            print("Touché!")
+            print("Hit!")
             if all(value is False for value in ship.values()):
-                print("Un navire a été coulé!")
+                print("A ship has been sunk!")
             return True
-    print("Manqué!")
+    print("Miss!")
     return False
 
 
 # Obtenir les coordonnées du tir de l'utilisateur
 def get_user_shot(user_input):
     """
-    Function used to obtain the coordinates of the user's shot digitally
-    :param user_input: the coordinates of the user's shot
-    :return: the row and column number
+    Function used to obtain the coordinates of the user's shot.
+    :param user_input: The coordinates of the user's shot.
+    :return: The row and column number as a tuple.
     """
     user_input = user_input.strip().upper()
     if len(user_input) >= 2:
@@ -78,16 +78,16 @@ def get_user_shot(user_input):
             col = LETTERS.index(col_letter) + 1
             if is_valid_coordinate((col, row)):
                 return col, row
-    print("Coordonnées invalides. Veuillez entrer des coordonnées valides.")
-    return get_user_shot(input("Entrez les coordonnées de votre tir (exemple: 'A1' ou 'J10'): "))
+    print("Invalid coordinates. Please enter valid coordinates.")
+    return get_user_shot(input("Enter the coordinates of your shot (example: 'A1' or 'J10'): "))
 
 
 # Vérifie si tous les navires ont été détruits
 def all_ships_destroyed(ships):
     """
-    Checks if all ships have been destroyed
-    :param ships: the list of boats
-    :return: Bool: False if one of them have a value True,  True otherwise
+    Checks if all ships have been destroyed.
+    :param ships: The list of boats.
+    :return: Bool: False if one of them has a value True, True otherwise.
     """
     for ship in ships:
         for position in ship.values():
@@ -105,7 +105,7 @@ def update_previous_shots(coordinate, result):
     """
     col_letter = LETTERS[coordinate[0] - 1]  # Convertir l'indice en lettre
     row_number = coordinate[1]
-    cell_state = "Touché" if result else "Manqué"  # Mettre à jour l'état en fonction du résultat
+    cell_state = "Hit" if result else "Miss"  # Mettre à jour l'état en fonction du résultat
     previous_shots[(col_letter, row_number)] = cell_state
 
 
@@ -113,7 +113,7 @@ def update_previous_shots(coordinate, result):
 def display_battlefield(shots, ships):
     """
     Display the game grid with the results of previous shots.
-    :param ships: the list of boats
+    :param ships: The list of boats.
     :param shots: A dictionary of previous shots with coordinates and results.
     """
     num_rows = GRID_SIZE
@@ -130,12 +130,12 @@ def display_battlefield(shots, ships):
             cell_value = ' '
             if shots is not None:
                 state = shots.get((LETTERS[col], row + 1), "")
-                if state == "Touché":
+                if state == "Hit":
                     cell_value = 'X'
                     for ship in ships:
                         if all(value is False for value in ship.values()):
                             cell_value = 'W'
-                elif state == "Manqué":
+                elif state == "Miss":
                     cell_value = 'O'
             row_display.append(f"[{cell_value}]")
         print(" ".join(row_display))
